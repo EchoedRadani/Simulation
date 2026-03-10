@@ -1,5 +1,5 @@
 import pygame
-
+from constants import LINE_WIDTH, HOUSE_WIDTH, HOUSE_HEIGHT, HOUSE_RADIUS
 
 class CircleShape(pygame.sprite.Sprite):
     def __init__(self, x, y, radius):
@@ -36,4 +36,14 @@ class Person(CircleShape):
 
 
 class House(CircleShape):
-    pass
+    def __init__(self, x, y):
+        super().__init__(x, y, HOUSE_RADIUS)
+        self.capacity = 4
+        self.x = x
+        self.y = y
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, "brown", (self.x, self.y, HOUSE_WIDTH, HOUSE_HEIGHT), LINE_WIDTH)
+
+    def update(self, dt):
+        self.position
