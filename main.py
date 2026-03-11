@@ -1,6 +1,6 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, HOUSE_RADIUS
-from classes import House
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from classes import House, Tree
 
 
 def main():
@@ -13,8 +13,10 @@ def main():
     drawable = pygame.sprite.Group()
 
     House.containers = (updatable, drawable)
+    Tree.containers = (updatable, drawable)
 
     house = House(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    tree = Tree(1000, SCREEN_HEIGHT / 2)
 
     dt = 0
 

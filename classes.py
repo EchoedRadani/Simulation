@@ -9,6 +9,7 @@ class CircleShape(pygame.sprite.Sprite):
             super().__init__()
 
         self.position = pygame.Vector2(x, y)
+        self.velocity = pygame.Vector2(0, 0)
         self.radius = radius
 
     def draw(self, screen):
@@ -43,7 +44,27 @@ class House(CircleShape):
         self.y = y
 
     def draw(self, screen):
-        pygame.draw.rect(screen, "brown", (self.x, self.y, HOUSE_WIDTH, HOUSE_HEIGHT), LINE_WIDTH)
+        pygame.draw.rect(screen, "brown", (self.x, self.y, HOUSE_WIDTH, HOUSE_HEIGHT))
 
     def update(self, dt):
         self.position
+
+
+class Tree(CircleShape):
+    def __init__(self, x, y):
+        super().__init__(x, y, HOUSE_RADIUS)
+        self.rotation = 0
+    
+    def triangle(self):
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
+        a = self.position - forward * self.radius
+        b = self.position + forward * self.radius - right
+        c = self.position + forward * self.radius + right
+        return [a, b, c]
+
+    def draw(self, screen):
+        pygame.draw.polygon(screen, "green", self.triangle())
+
+    def cut_down(self):
+        self.kill()
