@@ -1,4 +1,5 @@
 import pygame
+import random
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from classes import House, Tree
 
@@ -12,11 +13,18 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
 
+    print("Spawning trees...")
+    trees = []
+    for _ in range(50):
+        ran_x = random.randint(5, SCREEN_WIDTH - 5)
+        ran_y = random.randint(5, SCREEN_HEIGHT - 5)
+        trees.append(Tree(ran_x, ran_y))
+
     House.containers = (updatable, drawable)
     Tree.containers = (updatable, drawable)
 
     house = House(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    tree = Tree(1000, SCREEN_HEIGHT / 2)
+    # tree = Tree(1000, SCREEN_HEIGHT / 2)
 
     dt = 0
 
@@ -30,6 +38,9 @@ def main():
 
         for items in drawable:
             items.draw(screen)
+
+        for tree in trees:
+            tree.draw(screen)
 
         pygame.display.flip()
 
